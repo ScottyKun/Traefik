@@ -19,7 +19,7 @@ services:
       - "traefik.http.routers.dashboard.tls.certresolver=leresolver"
       - "traefik.http.routers.dashboard.service=api@internal"
       - "traefik.http.routers.dashboard.middlewares=auth"
-      - "traefik.http.middlewares.auth.basicauth.users=admin:$2a$12$I5mzI2bMX.Wp8JGkySaLhOWzkWKtayFB9dufYRqKYQ.1Ipp02764a"
+      - "traefik.http.middlewares.auth.basicauth.users=admin:$$2a$12$I5mzI2bMX.Wp8JGkySaLhOWzkWKtayFB9dufYRqKYQ.1Ipp02764a"
 
 networks:
   traefik-public:
