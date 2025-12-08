@@ -18,8 +18,8 @@ services:
       - "traefik.http.routers.dashboard.rule=Host(`traefik.famproject.cloud`)"
       - "traefik.http.routers.dashboard.tls.certresolver=leresolver"
       - "traefik.http.routers.dashboard.service=api@internal"
-      - "traefik.http.routers.dashboard.middlewares=auth"
-      - "traefik.http.middlewares.auth.basicauth.users=admin:traefikdocker"
+     # - "traefik.http.routers.dashboard.middlewares=auth"
+     # - "traefik.http.middlewares.auth.basicauth.users=admin:traefikdocker"
 
 networks:
   traefik-public:
