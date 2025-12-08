@@ -1,6 +1,7 @@
+
 services:
   traefik:
-    image: traefik
+    image: traefik:v3.6
     container_name: traefik
     restart: always
     ports:
@@ -14,19 +15,11 @@ services:
       - traefik-public
     labels:
       - "traefik.enable=true"
-
-      # ROUTEUR HTTPS POUR LE DASHBOARD
-      - "traefik.http.routers.traefik-dashboard.rule=Host(`famproject.cloud`) && PathPrefix(`/traefik`)"
-      - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
-      - "traefik.http.routers.traefik-dashboard.tls.certresolver=leresolver"
-      - "traefik.http.routers.traefik-dashboard.service=api@internal"
-      - "traefik.http.routers.traefik-dashboard.middlewares=traefik-auth,traefik-strip"
-
-      # BASIC AUTH
-      - "traefik.http.middlewares.traefik-auth.basicauth.users=admin:$$2y$$05$$NpYg5jk610mgR1X3eGRQvegQcN3fs7GdEmY71sSMiK880cTOehBi6"
-
-      # SUPPRESSION DU PREFIXE
-      - "traefik.http.middlewares.traefik-strip.stripprefix.prefixes=/traefik"
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.famproject.cloud`)"
+      - "traefik.http.routers.dashboard.tls.certresolver=leresolver"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=admin:$$2y$$05$$NpYg5jk610mgR1X3eGRQvegQcN3fs7GdEmY71sSMiK880cTOehBi6"
 
 networks:
   traefik-public:
