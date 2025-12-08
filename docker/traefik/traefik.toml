@@ -1,0 +1,33 @@
+[log]
+  level = "DEBUG"
+
+[accessLog]
+  # Enables access logging for requests.
+  filePath = "access.log"
+  format = "json"
+
+[api]
+  dashboard = true
+  insecure = false
+
+[entryPoints]
+  [entryPoints.web]
+    address = ":80"
+    [entryPoints.web.http.redirections.entryPoint]
+      to = "websecure"
+      scheme = "https"
+  [entryPoints.websecure]
+    address = ":443"
+
+[providers]
+  [providers.docker]
+    exposedByDefault = false
+    network = "traefik-public"
+
+[certificatesResolvers]
+  [certificatesResolvers.leresolver]
+    [certificatesResolvers.leresolver.acme]
+      email = "daryldedzo01@gmail.com"
+      storage = "/acme.json"
+      [certificatesResolvers.leresolver.acme.httpChallenge]
+        entryPoint = "web"
